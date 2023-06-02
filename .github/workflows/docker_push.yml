@@ -14,6 +14,9 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
+      - 
+        name: Install xmllint
+        run: sudo apt-get install -y gomplate
       -
         name: Generate Dockerfile
         run: ./gen_docker_file.sh ${{ inputs.tag }}
@@ -35,5 +38,5 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm/v6, linux/arm/v7, linux/arm64, linux/ppc64le, linux/s390x
-          push: true
+          push: false
           tags: leoppro/docker-caddy-webdav:latest, leoppro/docker-caddy-webdav:${{ inputs.tag }} 

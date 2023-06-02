@@ -14,9 +14,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
-      - 
-        name: Install gomplate
-        run: sudo apt-get update && sudo apt-get install -y gomplate
       -
         name: Generate Dockerfile
         run: ./gen_docker_file.sh ${{ inputs.tag }}

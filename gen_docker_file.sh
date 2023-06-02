@@ -1,2 +1,3 @@
 #!/bin/sh -eux
-CANDY_TAG=$1 gomplate -f ./Dockerfile.tmpl -o ./Dockerfile
+docker run -e CANDY_TAG=$1 -v $(pwd):/pwd hairyhenderson/gomplate -f /pwd/Dockerfile.tmpl -o /pwd/Dockerfile
+

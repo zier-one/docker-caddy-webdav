@@ -1,0 +1,26 @@
+{{ $prefix := "" }}
+{{ if env.Getenv "WD_PREFIX" }}
+{{ $prefix = path.Clean .Env.WD_PREFIX }}
+{{ assert "WD_PREFIX must be an absolute path" (path.IsAbs $prefix) }}
+{{ end }}
+
+{{ .Env.WD_ADDRESS }}
+
+route {
+	{{ if env.Getenv "WD_USERNAME" }}
+	basicauth {
+        {{ .Env.WD_USERNAME }} {{ crypto.Bcrypt 14 .Env.WD_PASSWORD }}
+    }
+	{{ end }}
+	{{ if $prefix }}
+	rewrite {{ $prefix }} {{ $prefix }}/
+	{{ end }}
+	webdav {{ $prefix }}/* {
+		root /webdav
+		{{ if $prefix }}
+		prefix {{ $prefix }}
+		{{ end }}
+	}
+	file_server
+}
+

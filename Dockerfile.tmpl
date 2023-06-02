@@ -1,0 +1,25 @@
+FROM caddy:{{ .Env.CANDY_TAG }}-builder AS builder
+
+RUN xcaddy build --with github.com/mholt/caddy-webdav 
+
+FROM caddy:{{ .Env.CANDY_TAG }}
+
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+COPY Caddyfile.tmpl /etc/caddy/Caddyfile.tmpl
+COPY entrypoint.sh /entrypoint.sh
+RUN apk update \
+    && apk add --no-cache gomplate \
+    && rm -f /etc/caddy/Caddyfile \
+    && mkdir /webdav
+
+WORKDIR /webdav
+
+ENV WD_ADDRESS http://
+
+EXPOSE 80
+EXPOSE 443
+EXPOSE 443/udp
+EXPOSE 2019
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]

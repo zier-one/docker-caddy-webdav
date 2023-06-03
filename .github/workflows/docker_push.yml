@@ -17,7 +17,7 @@ jobs:
   docker_push:
     runs-on: ubuntu-latest
     needs: fetch_version
-    if: needs.fetch_version.outputs.fetch_version != ''
+    if: needs.fetch_version.outputs.push_tag != ''
     steps:
       - name: Checkout
         uses: actions/checkout@v3

@@ -9,7 +9,6 @@ COPY Caddyfile.tmpl /etc/caddy/Caddyfile.tmpl
 COPY entrypoint.sh /entrypoint.sh
 RUN apk update \
     && apk add --no-cache gomplate \
-    && rm -f /etc/caddy/Caddyfile \
     && mkdir /webdav
 
 WORKDIR /webdav

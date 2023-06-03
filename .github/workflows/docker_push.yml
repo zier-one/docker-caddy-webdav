@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Generate Dockerfile
-        run: ./gen_docker_file.sh ${{ jobs.fetch_version.outputs.fetch_version }}
+        run: ./gen_docker_file.sh ${{ jobs.fetch_version.outputs.push_tag }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -37,4 +37,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm/v6, linux/arm/v7, linux/arm64, linux/ppc64le
           push: true
-          tags: leoppro/docker-caddy-webdav:latest, leoppro/docker-caddy-webdav:${{ jobs.fetch_version.outputs.fetch_version }} 
+          tags: leoppro/docker-caddy-webdav:latest, leoppro/docker-caddy-webdav:${{ jobs.fetch_version.outputs.push_tag }} 

@@ -46,4 +46,4 @@ jobs:
   call_myself_again:
     needs: docker_push
     if: needs.docker_push.outputs.push_tag != ''
-    uses: .github/workflows/docker_push.yml@main
+    uses: leoppro/docker-caddy-webdav/.github/workflows/docker_push.yml@main

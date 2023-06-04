@@ -2,7 +2,6 @@ name: docker_push
 
 on:
   workflow_dispatch:
-  workflow_call:
 
 jobs:
   fetch_version:
@@ -18,8 +17,6 @@ jobs:
   docker_push:
     runs-on: ubuntu-latest
     needs: fetch_version
-    outputs:
-      push_tag: ${{ needs.fetch_version.outputs.push_tag }}
     if: needs.fetch_version.outputs.push_tag != ''
     steps:
       - name: Checkout
@@ -42,8 +39,3 @@ jobs:
           platforms: linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64, linux/ppc64le
           push: true
           tags: leoppro/docker-caddy-webdav:latest, leoppro/docker-caddy-webdav:${{ needs.fetch_version.outputs.push_tag }} 
-
-  call_myself_again:
-    needs: docker_push
-    if: needs.docker_push.outputs.push_tag != ''
-    uses: leoppro/docker-caddy-webdav/.github/workflows/docker_push.yml@main

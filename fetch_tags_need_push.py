@@ -10,8 +10,10 @@ def fetch_tags(repo, filter=None):
     url = 'https://hub.docker.com/v2/repositories/%s/tags/?ordering=-last_updated&page_size=100&page=1' % repo
     tags = []
     while url != None:
-        req = requests.get(url)
-        resp = req.json()
+        resp = requests.get(url)
+        if resp.status_code == 404:
+            break
+        resp = resp.json()
         url = resp['next']
         results = resp['results']
         for result in results:
@@ -24,7 +26,7 @@ def fetch_tags(repo, filter=None):
 
 def main():
     this_repo_tags = fetch_tags(
-        'leoppro/docker-caddy-webdav', lambda tag: re.match(r'^\d+\.\d+\.\d+$', tag))
+        'leoppro/caddy-webdav', lambda tag: re.match(r'^\d+\.\d+\.\d+$', tag))
     first_this_repo_tags = '0.0.0'
     if len(this_repo_tags) > 0:
         first_this_repo_tags = this_repo_tags[0]

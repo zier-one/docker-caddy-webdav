@@ -27,7 +27,7 @@ def fetch_tags(repo, filter=None):
 def main():
     this_repo_tags = fetch_tags(
         'leoppro/caddy-webdav', lambda tag: re.match(r'^\d+\.\d+\.\d+$', tag))
-    first_this_repo_tags = '0.0.0'
+    first_this_repo_tags = '3.0.0'
     if len(this_repo_tags) > 0:
         first_this_repo_tags = this_repo_tags[0]
     caddy_tags = fetch_tags(

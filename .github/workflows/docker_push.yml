@@ -39,4 +39,4 @@ jobs:
           context: .
           platforms: linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64, linux/ppc64le
           push: true
-          tags: leoppro/docker-caddy-webdav:latest, leoppro/docker-caddy-webdav:${{ needs.fetch_version.outputs.push_tag }} 
+          tags: leoppro/caddy-webdav:latest, leoppro/caddy-webdav:${{ needs.fetch_version.outputs.push_tag }} 

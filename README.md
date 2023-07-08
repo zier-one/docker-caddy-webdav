@@ -8,7 +8,7 @@ A WebDAV Server container with automatic HTTPS based on Caddy 2.
 Start a basic WebDAV Server listen 80 port:
 
 ```
-docker run -d -p 80:80 -v webdav:/webdav leoppro/docker-caddy-webdav:latest
+docker run -d -p 80:80 -v webdav:/webdav leoppro/caddy-webdav:latest
 ```
 
 In this examples, a named volume `webdav` is mounted to `/webdav`, the files updated by WebDAV will store here.

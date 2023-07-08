@@ -20,7 +20,7 @@ Start a WebDAV, you can access `http://localhost/webdav_path` to connect the Web
 ```
 docker run -d -p 80:80 -v webdav:/webdav \
     -e WD_PREFIX=/webdav_path \
-    leoppro/docker-caddy-webdav:latest
+    leoppro/caddy-webdav:latest
 ```
 
 ### Automatic TLS
@@ -33,7 +33,7 @@ docker run -d -p 80:80 -p 443:443 -p 443:443/udp \
     -v caddy_data:/data \
     -v caddy_config:/config \
     -e WD_ADDRESS=https://your_domain.com \
-    leoppro/docker-caddy-webdav:latest
+    leoppro/caddy-webdav:latest
 ```
 
 Specify your domain name in `WD_ADDRESS`. The ports 80, 443 and 443(udp) are required for the ACME HTTP challenge, so open it. In addition to `webdav`, two more mount-points for volumes need to be provided: `/data` and `/config`. They are used to store certificates and configuration respectively. See more: https://hub.docker.com/_/caddy
@@ -46,5 +46,5 @@ Start a WebDAV with authentication. Specify your username and password in `WD_US
 docker run -d -p 80:80 -v webdav:/webdav \
     -e WD_USERNAME=foo \
     -e WD_PASSWORD=bar \
-    leoppro/docker-caddy-webdav:latest
+    leoppro/caddy-webdav:latest
 ```
